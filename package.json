@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack serve",
-    "build": "NODE_ENV=production webpack",
+    "dev": "webpack serve --open --config ./build/webpack.dev.config.js",
+    "build": "NODE_ENV=production webpack --config ./build/webpack.build.config.js",
     "prettier": "prettier -w ./src"
   },
   "keywords": [],
@@ -18,6 +18,7 @@
     "autoprefixer": "^10.3.1",
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "copy-webpack-plugin": "^10.2.4",
     "css-loader": "^6.2.0",
     "cssnano": "^5.0.8",
     "html-webpack-plugin": "^5.3.2",
@@ -25,10 +26,13 @@
     "postcss": "^8.3.6",
     "postcss-loader": "^6.1.1",
     "prettier": "^2.3.2",
+    "pug-loader": "^2.4.0",
+    "pug-plain-loader": "^1.1.0",
     "style-loader": "^3.2.1",
     "tailwindcss": "^2.2.7",
     "webpack": "^5.50.0",
     "webpack-cli": "^4.8.0",
-    "webpack-dev-server": "^3.11.2"
+    "webpack-dev-server": "^3.11.2",
+    "webpack-merge": "^5.8.0"
   }
 }
