@@ -1,9 +1,10 @@
 const path = require('path');
 const fs = require('fs')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const isDev = true;
 
 // Main const
 // see more: https://github.com/vedees/webpack-template/blob/master/README.md#main-const
@@ -29,7 +30,7 @@ module.exports = {
   },
   output: {
     path: PATHS.dist,
-    filename: `${PATHS.assets}js/[name].[hash].js`,
+    filename: `${PATHS.assets}js/[name].[fullhash].js`,
     publicPath: '/'
   },
   optimization: {
@@ -63,14 +64,13 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [
-          'style-loader',
-          MiniCssExtractPlugin.loader,
+          isDev ? 'style-loader':MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
             options: { sourceMap: true }
           }, {
             loader: 'postcss-loader',
-            options: { sourceMap: true, config: { path: `./postcss.config.js` } }
+            options: { sourceMap: true }
           }, {
             loader: 'sass-loader',
             options: { sourceMap: true }
@@ -87,7 +87,7 @@ module.exports = {
             options: { sourceMap: true }
           }, {
             loader: 'postcss-loader',
-            options: { sourceMap: true, config: { path: `./postcss.config.js` } }
+            options: { sourceMap: true }
           }
         ]
       },
@@ -111,19 +111,16 @@ module.exports = {
     }
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: './src/index.html'
-    }),
-    new MiniCssExtractPlugin({
-      filename: `${PATHS.assets}css/[name].[hash].css`,
-    }),
     new CleanWebpackPlugin(),
-    new CopyWebpackPlugin({
+    new CopyPlugin({
       patterns: [
         { from: `${PATHS.src}/${PATHS.assets}img`, to: `${PATHS.assets}img` },
         { from: `${PATHS.src}/${PATHS.assets}fonts`, to: `${PATHS.assets}fonts` },
         { from: `${PATHS.src}/static`, to: '' },
-      ]
+      ],
+    }),
+    new MiniCssExtractPlugin({
+      filename: `${PATHS.assets}css/[name].[fullhash].css`,
     }),
     // Automatic creation any html pages (Don't forget to RERUN dev server)
     // see more: https://github.com/vedees/webpack-template/blob/master/README.md#create-another-html-files
@@ -131,7 +128,7 @@ module.exports = {
     ...PAGES.map(page => new HtmlWebpackPlugin({
       template: `${PAGES_DIR}/${page}`,
       filename: `./${page.replace(/\.pug/,'.html')}`
-    }))
+    })),
   ],
-  target: 'web',
+  target: 'web'
 }

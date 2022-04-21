@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack serve --open --config ./build/webpack.dev.config.js",
+    "dev": "webpack serve --config ./build/webpack.dev.config.js",
     "build": "NODE_ENV=production webpack --config ./build/webpack.build.config.js",
     "prettier": "prettier -w ./src"
   },
@@ -23,15 +23,17 @@
     "cssnano": "^5.0.8",
     "html-webpack-plugin": "^5.3.2",
     "mini-css-extract-plugin": "^2.2.0",
+    "node-sass": "^7.0.1",
     "postcss": "^8.3.6",
     "postcss-loader": "^6.1.1",
     "prettier": "^2.3.2",
     "pug-loader": "^2.4.0",
     "pug-plain-loader": "^1.1.0",
+    "sass-loader": "^12.6.0",
     "style-loader": "^3.2.1",
     "tailwindcss": "^2.2.7",
-    "webpack": "^5.50.0",
-    "webpack-cli": "^4.8.0",
+    "webpack": "^5.72.0",
+    "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^3.11.2",
     "webpack-merge": "^5.8.0"
   }
