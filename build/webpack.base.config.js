@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const isDev = true;
+const isDev = !(process.env.NODE_ENV === 'production');
 
 // Main const
 // see more: https://github.com/vedees/webpack-template/blob/master/README.md#main-const
@@ -31,7 +31,8 @@ module.exports = {
   output: {
     path: PATHS.dist,
     filename: `${PATHS.assets}js/[name].[fullhash].js`,
-    publicPath: '/'
+    publicPath: '/',
+    assetModuleFilename: 'images/[hash][ext]',
   },
   optimization: {
     splitChunks: {
@@ -92,7 +93,7 @@ module.exports = {
         ]
       },
       {
-        test: /\.(jpg|jpeg|png|gif|svg)/,
+        test: /\.(jpg|jpeg|png|gif|svg)$/,
         type: 'asset/resource'
       },
       {
@@ -127,7 +128,8 @@ module.exports = {
     // best way to create pages: https://github.com/vedees/webpack-template/blob/master/README.md#third-method-best
     ...PAGES.map(page => new HtmlWebpackPlugin({
       template: `${PAGES_DIR}/${page}`,
-      filename: `./${page.replace(/\.pug/,'.html')}`
+      filename: `./${page.replace(/\.pug/,'.html')}`,
+      favicon: path.resolve(PATHS.src, 'static', 'favicon.ico'),
     })),
   ],
   target: 'web'

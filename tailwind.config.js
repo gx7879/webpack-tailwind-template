@@ -1,17 +1,6 @@
 module.exports = {
-  purge: ['./src/**/*.pug', './src/**/*.html', './src/**/*.js'],
-  mode: 'jit',
-  darkMode: false, // or 'media' or 'class'
+  content: ["./src/**/*.{html,pug,js}"],
   theme: {
-    extend: {
-      colors: {
-        'primary': '#4f3cc9',
-        'primary-dark': '#4232aa',
-        'secondary': '#ffffff'
-      }
-    },
-  },
-  variants: {
     extend: {},
   },
   plugins: [],
